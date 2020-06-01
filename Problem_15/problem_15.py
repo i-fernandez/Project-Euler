@@ -13,24 +13,32 @@ How many such routes are there through a 20×20 grid?
 
 from timeit import default_timer
 
+
 def next_move(row, col):
-    suma = 0
+    if matrix[row][col] != 0:
+        return matrix[row][col]
     # Comprueba si es final de fila/col
-    if col == size-1 or row == size-1:
+    if col == size-1 and row == size-1:
+        matrix[row][col] = 1
         return 1
     else:
-        suma += next_move(row,col+1)
-        suma += next_move(row+1,col)
-    return suma
+        val = 0
+        if col+1 < size:
+            val += next_move(row, col+1)
+        if row+1 < size:
+            val += next_move(row+1, col)
+        matrix[row][col] = val
+        return val
 
-
-    
     
 if __name__ == '__main__':
-    for i in range(2,16):
-        start = default_timer()
-        grid = i
-        size = grid + 1
-        paths = next_move(0, 0)
-        elapsed = default_timer() - start
-        print(f'Size: {grid} - Paths: {paths} in {elapsed:.2} seconds')
+    grid = 20
+    size = grid + 1
+    matrix = [[0 for col in range(grid+1)] for row in range(grid+1)]
+    start = default_timer()
+    paths = next_move(0, 0)
+    elapsed = default_timer() - start
+    print(f'Size: {grid} - Paths: {paths} in {elapsed:.3} seconds')
+
+
+        

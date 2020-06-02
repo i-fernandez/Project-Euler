@@ -24,8 +24,8 @@ def get_permutations(r):
             if len(l) == SIZE:
                 global count
                 count += 1
-                print(f'l: {l}')
                 if count == limit:
+                    print(f'l: {l}')
                     return
             output.append(l)
     return output
@@ -33,7 +33,7 @@ def get_permutations(r):
 
 
 if __name__ == '__main__':
-    SIZE = 4
+    SIZE = 10
     digits = [str(n) for n in range(0,SIZE)]
     count = 0
     limit = 1000000

@@ -8,6 +8,10 @@ Created on Tue Jun  2 18:50:27 2020
 Find the value of d < 1000 for which 1/d contains the longest recurring 
 cycle in its decimal fraction part.
 
+https://codereview.stackexchange.com/questions/161361/use-python-to-determine-the-repeating-pattern-in-a-string
+https://stackoverflow.com/questions/41077268/python-find-repeated-substring-in-string/41077376
+
+
 """
 #import re
 from decimal import Decimal,getcontext

@@ -10,7 +10,7 @@ cycle in its decimal fraction part.
 
 """
 #import re
-from decimal import *
+from decimal import Decimal,getcontext
 
 # devuelve el numero de decimales en el ciclo
 def get_cycle(denominador):
@@ -20,29 +20,23 @@ def get_cycle(denominador):
     # Quita el decimal del redondeo
     st = st[0:len(st)-1]
     #print(f'number: {st}')
-    for i in range(1,len(st)):
-        if st[i] == st[0]:
-            resto = st.replace(st[0:i], '')
+    for i in range(len(st)-1,1,-1):
+        #if st[i] == st[0]:
+        print(f'i: {i} - val: {st[i]}')
+        if st[i] == st[len(st)-1]:
+            print(f'Iguales')
+            
+            resto = st.replace(st[i:len(st)-1], '')
+            print(f'resto: {resto}')
             if st[0:len(resto)] == resto:
                 return i
     return len(st)
                     
 
-"""
-def get_cycle_v2(number):
-    print(f'number: {number}')
-    st = str(number)
-    #.replace('0.','')
-    print(f'st: {st}')
-    regex = re.compile(r'(.+ .+)( \1)+')
-    #match = regex.search(st)
-    m = regex.match('001001')
-    print(m)
-    #print(match.group(1))
-"""  
+
     
 def main():
-    getcontext().prec = 100
+    #getcontext().prec = 100
     max_dec = 0
     num = 0
     for i in range(1,100):
@@ -54,10 +48,14 @@ def main():
     print(f'Best: {num}  {max_dec} dec')
 
 def main2():
-    for i in range(1,100):
-        print(1/i)
+    getcontext().prec = 100
+    get_cycle(6)
+    #for i in range(1,100):
+    #    print(1/i)
     
-main()
-#print(get_cycle(102))
-#main2()
+
+getcontext().prec = 100
+#main()
+print(get_cycle(6))
+
 

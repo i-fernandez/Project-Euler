@@ -6,14 +6,6 @@ For example, 2143 is a 4-digit pandigital and is also prime.
 What is the largest n-digit pandigital prime that exists?
 """
 
-def is_n_pandigital(number):
-    st_num = str(number)
-    if len(st_num) > 9:
-        return False
-    for i in range(1,len(st_num)+1):
-        if str(i) not in st_num:
-            return False
-    return True
 
 def is_prime_number(n):
     if n < 2:
@@ -24,13 +16,6 @@ def is_prime_number(n):
             return False
     return True
 
-def is_prime_from_list(n, prime_list):
-    if len(prime_list) == 0:
-        return True
-    for p in prime_list:
-        if n%p == 0:
-            return False
-    return True
 
 # Convert a list of character into a string  
 def convert(s): 
@@ -51,41 +36,19 @@ def get_permutations(r):
             output.append(l)
     return output
 
-prime_list = []
+
 max_pandigital = 0
-SIZE = 10
-digits = [str(n) for n in range(1,SIZE)]
-perm = get_permutations(digits)
 
+for size in range(10,1,-1):
+    digits = [str(n) for n in range(1,size)]
+    perm = get_permutations(digits)
+    
+    
+    for i in range(len(perm)-1,0,-1):
+        n = int(convert(perm[i]))
+        if n%2 != 0 and n%3 != 0 and n%5 != 0:
+            if is_prime_number(n):
+                if n > max_pandigital:
+                    max_pandigital = n
+                    print(f'Max pandigital: {n}')
 
-for i in range(len(perm)-1,0,-1):
-    n = int(convert(perm[i]))
-    if n%2 != 0 and n%3 != 0 and n%5 != 0:
-        if is_prime_number(n):
-            if n > max_pandigital:
-                max_pandigital = n
-                print(f'Max pandigital: {n}')
-
-
-
-
-"""
-for i in range(2,987654321):
-    if is_prime_from_list(i,prime_list):
-        prime_list.append(i)
-        if is_n_pandigital(i):
-            if i > max_pandigital:
-                max_pandigital = i
-                print(f'Max pandigital found: {i}')
-
-
-for i in range(987654321, 4231, -2):
-    if is_n_pandigital(i):
-        #print(f'{i} is pandigital')
-        if is_prime_number(i):
-            print(f'{i} is pandigital and prime')
-            break
-# Tope = 987654321
-"""
-
-#print(is_n_pandigital(26341))

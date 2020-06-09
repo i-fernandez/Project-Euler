@@ -24,14 +24,12 @@ def is_prime_from_list(n):
             return False
     return True
 
-def next_prime():
-    global index
-    global prime_list
+def next_prime(index):
     while True:
         index += 1
         if is_prime_from_list(index):
             prime_list.append(index)
-            return
+            return index
 
 def is_goldbach(number):
     for pr in prime_list:
@@ -52,7 +50,7 @@ def is_goldbach(number):
 index = 1
 prime_list = []
 for i in range(0,10000):
-    next_prime()
+    index = next_prime(index)
 
 
 for i in range(3,20000,2):

@@ -23,15 +23,14 @@ prime_list = []
 
 
 # Genera todas las permutaciones posibles entre los digitos de r
-r = [str(n) for n in range(0,10)]
 def get_permutations(r):
     if len(r) == 1:
         return [r]
     output = []
-    for i in r:
-        resto = [n for n in r if n != i]
+    for i in range(0,len(r)):
+        resto = r[0:i] + r[i+1:len(r)]
         comb = get_permutations(resto)
         for p in comb:
-            l = [i] + p
+            l = [r[i]] + p
             output.append(l)
     return output

@@ -14,19 +14,19 @@ def get_permutations(r):
     if len(r) == 1:
         return [r]
     output = []
-    for i in r:
-        resto = [n for n in r if n != i]
+    for i in range(0,len(r)):
+        resto = r[0:i] + r[i+1:len(r)]
         comb = get_permutations(resto)
         for p in comb:
-            l = [i] + p
+            l = [r[i]] + p
             output.append(l)
     return output
 
 # Convert a list of character into a string  
 def convert(s): 
     new = ''
-    for x in s: 
-        new += x  
+    for x in s:
+        new += str(x)  
     return new 
 
 def is_prime_number(n):
@@ -62,33 +62,16 @@ for i in range(1000,10000):
         perm = [i]
         for p in get_permutations(digits):
             n = int(convert(p))
-            if n > i and is_prime_number(n):
+            if n not in perm and n > i and is_prime_number(n):
                 perm.append(n)
         perm.sort()
-
         if len(perm) > 2:
-            #print(f'prime: {i}')
-            #print(perm)
             sq = is_sequence(perm)
             if sq != 0:
                 print(sq)
-                """
-            count = 1
-            for term in perm:
-                # 2º termino
-                dif = term-i
-                # 3º termino
-                term3 = term+dif
 
-                if term3 in perm:
-                    solution = []
-                    solution.append(i)
-                    solution.append(term)
-                    solution.append(term3)
-                    print(solution)
-                    break
-                """
-    
+
+
                    
 
 

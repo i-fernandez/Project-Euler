@@ -338,6 +338,26 @@ def primesfrom2to(n):
             sieve[(k*k+4*k-2*k*(i&1))/3::2*k] = False
     return np.r_[2,3,((3*np.nonzero(sieve)[0]+1)|1)]
 
+##################################################################
+def sieve(n,start=0):
+    is_prime = [True]*n
+    is_prime[:2] = [False, False]
+    for i in range(2,int(math.sqrt(n)+1)):
+        index = i*2
+        while index < n:
+            is_prime[index] = False
+            index = index + i
+    primes = []
+    for i in range(n):
+        if is_prime[i] and i > start:
+            primes.append(i)
+    return primes
+
+n = 1000000
+primes = sieve(n)
+
+##################################################################
+
 if __name__=='__main__':
     import itertools
     import sys

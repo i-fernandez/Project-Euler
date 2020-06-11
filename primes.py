@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-import psyco; psyco.full()
+#import psyco; psyco.full()
 from math import sqrt, ceil
-import numpy as np
+#import numpy as np
 
 def rwh_primes(n):
     # https://stackoverflow.com/questions/2068372/fastest-way-to-list-all-primes-below-n-in-python/3035188#3035188
@@ -342,7 +342,7 @@ def primesfrom2to(n):
 def sieve(n,start=0):
     is_prime = [True]*n
     is_prime[:2] = [False, False]
-    for i in range(2,int(math.sqrt(n)+1)):
+    for i in range(2,int(sqrt(n)+1)):
         index = i*2
         while index < n:
             is_prime[index] = False
@@ -353,8 +353,8 @@ def sieve(n,start=0):
             primes.append(i)
     return primes
 
-n = 1000000
-primes = sieve(n)
+#n = 1000000
+#primes = sieve(n)
 
 ##################################################################
 
@@ -362,6 +362,8 @@ if __name__=='__main__':
     import itertools
     import sys
 
+
+    """
     def test(f1,f2,num):
         print('Testing {f1} and {f2} return same results'.format(
             f1=f1.func_name,
@@ -380,3 +382,8 @@ if __name__=='__main__':
     test(sieveOfAtkin,rwh_primes,n)
     test(sieveOfAtkin,rwh_primes1,n)         
     test(sieveOfAtkin,rwh_primes2,n)
+    """
+
+    n = 25
+    primes = sieve(n)
+    print(primes)

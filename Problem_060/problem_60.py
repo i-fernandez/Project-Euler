@@ -10,6 +10,7 @@ primes concatenate to produce another prime.
 
 """
 from math import sqrt
+#from timeit import default_timer
 
 def sieve(n,start=0):
     is_prime = [True]*n
@@ -30,9 +31,9 @@ def concatenate_primes(numbers, n):
     for number in numbers:
         number_1 = int(str(number)+str(n))
         number_2 = int(str(n)+str(number))
-        if number_1 > primes[len(primes)-1] or number_1 not in primes:
+        if number_1 > last_prime or not is_present(primes, number_1):
             return False
-        if number_2 > primes[len(primes)-1] or number_2 not in primes:
+        if number_2 > last_prime or not is_present(primes, number_2):
             return False
     return True
         
@@ -52,11 +53,38 @@ def get_prime_sum(prime_set):
     return suma
 
 
-tope = 5
-n = 10000000
-primes = sieve(n)
+# Devuelve true si el elemento x está en arr
+# busqueda binaria
+def is_present(arr, x): 
+    low = 0
+    high = len(arr) - 1
+    mid = 0
+  
+    if x < arr[0] or x > arr[len(arr)-1]:
+        return False
+    
+    while low <= high: 
+  
+        mid = (high + low) // 2
+        if x == arr[mid]:
+            return True
+        # Check if x is present at mid 
+        if arr[mid] < x: 
+            low = mid + 1
+        # If x is greater, ignore left half 
+        elif arr[mid] > x: 
+            high = mid - 1
+  
+    # If we reach here, then the element was not present 
+    return False
 
-lowest_sum = 99999999999999999999999
+tope = 5
+n = 100000000
+primes = sieve(n)
+last_prime = primes[len(primes)-1]
+
+
+lowest_sum = 999999999999999999
 for id in range(0, 1000):
     value = primes[id]
     if value not in [2,5]:
@@ -69,18 +97,14 @@ for id in range(0, 1000):
         suma_found = False
         while len(prime_set) < tope and not suma_found:
             next_id += 1
-            #print(f'next_id: {next_id}')
-            if next_id == len(primes)-1:
+            if next_id == len(primes)-1 or primes[next_id] > last_prime/1000:
                 if len(prime_index) == 1:
                     break
                 next_id = prime_index.pop() + 1
                 prime_set.pop()
-                #print(f'removing {prime_set.pop()} new next_id: {next_id}')
-                #print(f'New prime_set: {prime_set}')
-            element = primes[next_id]
-            #print(f'element: {element} at index: {next_id}')
+            element = primes[next_id]            
             max_val = get_concatenation(prime_set, element)
-            if max_val < primes[len(primes)-1] and concatenate_primes(prime_set, element):
+            if max_val < last_prime and concatenate_primes(prime_set, element):
                 prime_set.append(element)
                 prime_index.append(next_id)
                 #print(f'{prime_set}')
@@ -96,8 +120,9 @@ for id in range(0, 1000):
                         break
         if suma_found:
             break
-                    
-            
+
+print(prime_set)                    
+print(f'--------- LOWEST: {lowest_sum} ------------------')
                     
 
 

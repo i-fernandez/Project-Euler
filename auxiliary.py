@@ -34,3 +34,21 @@ def get_permutations(r):
             l = [r[i]] + p
             output.append(l)
     return output
+
+# Devuelve true si el elemento x está en arr
+# busqueda binaria
+def is_present(arr, x): 
+    low = 0
+    high = len(arr) - 1
+    mid = 0
+    if x < arr[0] or x > arr[len(arr)-1]:
+        return False
+    while low <= high: 
+        mid = (high + low) // 2
+        if x == arr[mid]:
+            return True
+        if arr[mid] < x: 
+            low = mid + 1
+        elif arr[mid] > x: 
+            high = mid - 1
+    return False

@@ -59,3 +59,17 @@ def is_present(arr, x):
         elif arr[mid] > x: 
             high = mid - 1
     return False
+
+# Devuelve una lista de factores unicos de number
+def get_factores(number):
+    factores = []
+    resto = number
+    for i in range(2,int(sqrt(number)+1)):
+        if resto % i == 0:
+            factores.append(i)
+            while resto % i == 0:
+                resto = resto / i
+            if resto == 1:
+                return factores
+    factores.append(int(resto))
+    return factores

@@ -32,5 +32,30 @@ def get_permutations(r):
         comb = get_permutations(resto)
         for p in comb:
             l = [r[i]] + p
-            output.append(l)
+            # No añade duplicados
+            if l not in output:
+                output.append(l)
     return output
+
+# Convierte las permutaciones a enteros
+def array_to_str(array: list) -> int:
+    array_n = [str(n) for n in array]
+    return int(''.join(array_n))
+
+# Devuelve true si el elemento x está en arr
+# busqueda binaria
+def is_present(arr, x): 
+    low = 0
+    high = len(arr) - 1
+    mid = 0
+    if x < arr[0] or x > arr[len(arr)-1]:
+        return False
+    while low <= high: 
+        mid = (high + low) // 2
+        if x == arr[mid]:
+            return True
+        if arr[mid] < x: 
+            low = mid + 1
+        elif arr[mid] > x: 
+            high = mid - 1
+    return False

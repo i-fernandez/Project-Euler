@@ -10,8 +10,6 @@ Find the value of n ≤ 1,000,000 for which n/φ(n) is a maximum.
 """
 
 from math import sqrt
-from timeit import default_timer
-
 
 # Devuelve una lista de factores unicos de number
 def get_factores(number):
@@ -27,18 +25,7 @@ def get_factores(number):
     factores.append(int(resto))
     return factores
  
-def get_relative_primes(number):
-    factores = get_factores(number)
-    relativos = [1]
-    for f in factores:
-        index = 1
-        while f*index < number:
-            rel = f*index
-            if rel not in relativos:
-                relativos.append(rel)
-            index += 1
-    return number - len(relativos)
-"""
+
 def get_relative_primes(number):
     factores = get_factores(number)
     relativos = [True]*number
@@ -49,36 +36,29 @@ def get_relative_primes(number):
             relativos[f*index] = False
             index += 1
     return sum(relativos)
-"""
+
 
 # Calcula el ratio n / phi(n)
 def get_euler_ratio(n):
     return n / get_relative_primes(n)
 
+def good_start(n):
+    if n % 2 != 0 or n % 3 != 0:
+        return False
+    if n % 5 != 0 or n % 7 != 0:
+        return False
+    if n % 11 != 0 or n % 13 != 0:
+        return False
+    return True
 
 
-"""
+# No mirar impares
 max_ratio = 0
-max_time = 0
 for i in range(2,1000001):
-    start = default_timer()
-    ratio = get_euler_ratio(i)
-    elapsed = default_timer() - start
-    if elapsed > max_time:
-        max_time = elapsed
-        print(f'n: {i} ratio {ratio}   {elapsed:.3}')
-    if ratio > max_ratio:
-        max_ratio = ratio
-        print(f'MAX   n: {i} ratio {ratio}  {elapsed:.3}')
+    if good_start(i):
+        ratio = get_euler_ratio(i)
+        if ratio > max_ratio:
+            max_ratio = ratio
+print(f'MAX   n: {i} ratio {ratio}')
         
-"""
-#MAX TIME: 232434 0.104 sec.  /// 0.02
-number = 232434
-start = default_timer()
-factores = get_factores(number)
-elapsed = default_timer() - start
-print(f'n factores: {factores} time: {elapsed:.3}')
-start = default_timer()
-n_relatives = get_relative_primes(number)
-elapsed = default_timer() - start
-print(f'n relatives: {n_relatives} time: {elapsed:.3}')
+
